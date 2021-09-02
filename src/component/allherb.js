@@ -47,7 +47,7 @@ const Allherb = () => {
                             <img src={val.Pic} class="pic img-thumbnail" alt="..." width="500" height="600"></img>
                         </div>
                         <div class="col-4 card-body text-left">
-                            <p class="card-text"><b>ชื่อ :</b> {val.SPname}</p>
+                            <p class="card-text"><b>ชื่อv :</b> {val.SPname}</p>
                             <p class="card-text"><b>ชื่อสามัญ :</b> {val.Cname}</p>
                             <p class="card-text"><b>ชื่อวิทยาศาสตร์ :</b> {val.Sname}</p>
                             <p class="card-text"><b>วงศ์ :</b> {val.Family}</p>
