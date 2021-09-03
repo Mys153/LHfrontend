@@ -12,6 +12,7 @@ const Eachdetail = (props) => {
     const [id, setID] = useState(props.match.params.id);
     const [leafherb, setleafherbList] = useState([]);
     const [newSPname, setnewSPname] = useState("");
+    const [newCname, setnewCname] = useState("");
 
     async function detailLeafherb() {
         const res = Axios.get(`http://localhost:3001/detail/${id}`).then((response) => {
@@ -21,13 +22,13 @@ const Eachdetail = (props) => {
     }
 
     const updateLeafherbList = (HID) => {
-        Axios.put("http://localhost:3001/update", { SPname: newSPname, HID: HID }).then((response) => {
+        Axios.put("http://localhost:3001/update", { SPname: newSPname,Cname: newCname, HID: HID }).then((response) => {
             setleafherbList(
                 leafherb.map((val) => {
                     return val.HID == HID ? {
                         HID: val.HID,
                         SPname: newSPname,
-                        Cname: val.Cname,
+                        Cname: newCname,
                         Sname: val.Sname,
                         Family: val.Family,
                         Pic: val.Pic,
@@ -63,7 +64,7 @@ const Eachdetail = (props) => {
                             <h4>รายละเอียด</h4>
                             <div class="col-md-4">
                                 <label for="validationCustom01" class="form-label">ชื่อ</label>
-                                <input type="text" class="form-control" id="validationCustom01" placeholder={val.SPname} 
+                                <input type="text" class="form-control" id={val.SPname} placeholder={val.SPname} 
                                 onChange={(event) => {
                                     setnewSPname(event.target.value)
                                 }}
@@ -71,7 +72,11 @@ const Eachdetail = (props) => {
                             </div>
                             <div class="col-md-4">
                                 <label for="validationCustom02" class="form-label">ชื่อสามัญ (ชื่อภาษาอังกฤษ)</label>
-                                <input type="text" class="form-control" id="validationCustom02" placeholder={val.Cname} />
+                                <input type="text" class="form-control" id={val.Cname} placeholder={val.Cname} 
+                                onChange={(event) => {
+                                    setnewCname(event.target.value)
+                                }}
+                                />
                             </div>
                             <div class="col-md-4">
                                 <label for="validationCustomUsername" class="form-label">ชื่อวิทยาศาสตร์</label>
@@ -129,7 +134,8 @@ const Eachdetail = (props) => {
                             <hb />
                         </form>
                         <div class="d-grid d-md-flex justify-content-md-end">
-                            <button className="button btn btn-warning btn-lg" onClick={() => { updateLeafherbList(val.HID) }} >Edit</button>
+                            <a onClick={() => { updateLeafherbList(val.HID) }} href={"/editherb/"} class="btn btn-warning btn-md">Edit</a>
+                            {/* <button className="button btn btn-warning btn-lg" onClick={() => { updateLeafherbList(val.HID) }} >Edit</button> */}
                         </div>
 
                         {/* สรรพคุณและวิธีใช้ */}

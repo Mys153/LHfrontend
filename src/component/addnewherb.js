@@ -26,19 +26,19 @@ const Addnewherb = () => {
     const [Fruit, setFruit] = useState("");
     const [Seed, setSeed] = useState("");
 
-    const [UseID, setUseID] = useState("");
-    const [SymID, setSymID] = useState("");
-    const [Part, setPart] = useState("");
-    const [How, setHow] = useState("");
+    // const [UseID, setUseID] = useState("");
+    // const [SymID, setSymID] = useState("");
+    // const [Part, setPart] = useState("");
+    // const [How, setHow] = useState("");
 
-    const [Rname, setRname] = useState("");
-    const [Publish_years, setPublish_years] = useState("");
-    const [Rlink, setRlink] = useState("");
-    const [Rdetail, setRdetail] = useState("");
+    // const [Rname, setRname] = useState("");
+    // const [Publish_years, setPublish_years] = useState("");
+    // const [Rlink, setRlink] = useState("");
+    // const [Rdetail, setRdetail] = useState("");
 
-    const [ChemID, setChemID] = useState("");
-    const [Chem_name, setChem_name] = useState("");
-    const [Chem_formular, setChem_formular] = useState("");
+    // const [ChemID, setChemID] = useState("");
+    // const [Chem_name, setChem_name] = useState("");
+    // const [Chem_formular, setChem_formular] = useState("");
 
     const [leafherb, setleafherbList] = useState([]);
     const [symptom, setsymptom] = useState([]);
@@ -69,15 +69,15 @@ const Addnewherb = () => {
             Fruit: Fruit,
             Seed: Seed,
 
-            UseID: UseID,
-            SymID: SymID,
-            Part: Part,
-            How: How,
+            // UseID: UseID,
+            // SymID: SymID,
+            // Part: Part,
+            // How: How,
 
-            Rname: Rname,
-            Publish_years: Publish_years,
-            Rlink: Rlink,
-            Rdetail: Rdetail,
+            // Rname: Rname,
+            // Publish_years: Publish_years,
+            // Rlink: Rlink,
+            // Rdetail: Rdetail,
 
             // ChemID: ChemID,
             // Chem_name: Chem_name,
@@ -99,15 +99,15 @@ const Addnewherb = () => {
                     Fruit: Fruit,
                     Seed: Seed,
 
-                    UseID: UseID,
-                    SymID: SymID,
-                    Part: Part,
-                    How: How,
+                    // UseID: UseID,
+                    // SymID: SymID,
+                    // Part: Part,
+                    // How: How,
 
-                    Rname: Rname,
-                    Publish_years: Publish_years,
-                    Rlink: Rlink,
-                    Rdetail: Rdetail,
+                    // Rname: Rname,
+                    // Publish_years: Publish_years,
+                    // Rlink: Rlink,
+                    // Rdetail: Rdetail,
 
                     // ChemID: ChemID,
                     // Chem_name: Chem_name,

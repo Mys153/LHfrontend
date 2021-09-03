@@ -13,15 +13,15 @@ import AddIcon from '@material-ui/icons/Add';
 
 const Addmore = () => {
     const [HID, setHID] = useState("");
-    const [UseID, setUseID] = useState("");
+    const [Usetype, setUsetype] = useState("");
     const [SymID, setSymID] = useState("");
     const [Part, setPart] = useState("");
     const [How, setHow] = useState("");
 
-    const [Rname, setRname] = useState("");
-    const [Publish_years, setPublish_years] = useState("");
-    const [Rlink, setRlink] = useState("");
-    const [Rdetail, setRdetail] = useState("");
+    // const [Rname, setRname] = useState("");
+    // const [Publish_years, setPublish_years] = useState("");
+    // const [Rlink, setRlink] = useState("");
+    // const [Rdetail, setRdetail] = useState("");
 
     const [leafherb, setleafherbList] = useState([]);
     const [symptom, setsymptom] = useState([]);
@@ -29,7 +29,7 @@ const Addmore = () => {
     const [addmore, setAddmore] = useState([]);
 
     const [SymptomForm, setSymptomForm] = useState([
-        { UseID: '', SymID: '', Part: '', How: '' }
+        { HID: '', Usetype: '', SymID: '', Part: '', How: '' }
     ]);
 
     async function symptopherb() {
@@ -50,36 +50,36 @@ const Addmore = () => {
         Axios.post('http://localhost:3001/create', {
 
             HID: HID,
-            UseID: UseID,
+            Usetype: Usetype,
             SymID: SymID,
             Part: Part,
             How: How,
 
-            Rname: Rname,
-            Publish_years: Publish_years,
-            Rlink: Rlink,
-            Rdetail: Rdetail,
+            // Rname: Rname,
+            // Publish_years: Publish_years,
+            // Rlink: Rlink,
+            // Rdetail: Rdetail,
         }).then(() => {
             setleafherbList([
                 ...leafherb,
                 {
                     HID: HID,
-                    UseID: UseID,
+                    Usetype: Usetype,
                     SymID: SymID,
                     Part: Part,
                     How: How,
 
-                    Rname: Rname,
-                    Publish_years: Publish_years,
-                    Rlink: Rlink,
-                    Rdetail: Rdetail,
+                    // Rname: Rname,
+                    // Publish_years: Publish_years,
+                    // Rlink: Rlink,
+                    // Rdetail: Rdetail,
                 }
             ])
         })
     }
 
     const handleAddFields = () => {
-        setSymptomForm([...SymptomForm, { UseID: '', SymID: '', Part: '', How: '' }])
+        setSymptomForm([...SymptomForm, { HID: '', Usetype: '', SymID: '', Part: '', How: '' }])
 
     }
 
@@ -104,11 +104,17 @@ const Addmore = () => {
                         <form class="row g-3" novalidate>
                             <div class="col-md-1">
                                 <label for="validationCustom01" class="form-label">รหัสสมุนไพร</label>
-                                <input class="form-control" type="text" placeholder={val.HID}
-                                onChange={(event) => {
-                                    setHID(event.target.value)
-                                }}
-                                    disabled />
+                                <input class="form-control" list="useid" type="text" value={val.HID}
+                                    onChange={(event) => {
+                                        setHID(event.target.value)
+                                        // setHID={val.HID}
+                                    }}
+                                    
+                                    // onChange={val.HID}
+                                    />
+                                    <datalist id="useid">
+                                    <option value={val.HID}>{val.HID}</option>
+                                </datalist>
                             </div>
                             <div class="col-md-2">
                                 <label for="validationCustom01" class="form-label">ชื่อ</label>
@@ -149,6 +155,45 @@ const Addmore = () => {
                                         )}
                                     </datalist>
                                 </div> */}
+                            {/* <div class="col-md-4">
+                                <label for="vinputEmail4" class="form-label">HID</label>
+                                <div class="input-group has-validation">
+                                    <input type="text" list="useid" class="form-control" placeholder=""
+                                        onChange={(event) => {
+                                            setHID(event.target.value)
+                                        }}
+                                    />
+                                    <datalist id="useid">
+                                    <option value={val.HID}>{val.HID}</option>
+                                    </datalist>
+                                </div>
+                            </div> */}
+                            {/* {addmore.map((val) => {
+                                <div class="col-md-1">
+                                <label for="validationCustom01" class="form-label">รหัสสมุนไพร</label>
+                                <input class="form-control" type="text" value={val.HID}
+                                    onChange={(event) => {
+                                        setHID(event.target.value)
+                                        // HID(event.target.value)
+                                        // setHID={val.HID}
+                                    }}
+                                    disabled />
+                                </div>
+                            })} */}
+                            <div class="col-md-4">
+                                <label for="vinputEmail4" class="form-label">HID</label>
+                                <div class="input-group has-validation">
+                                    <input type="text" list="useid" class="form-control" placeholder=""
+                                        onChange={(event) => {
+                                            setHID(event.target.value)
+                                        }}
+                                    />
+                                    <datalist id="useid">
+                                    {addmore.map((val) => (<option value={val.HID}>{val.HID}</option>)
+                                    )}
+                                    </datalist>
+                                </div>
+                            </div>
                             <div class="col-md-4">
                                 <label for="exampleDataList" class="form-label">สรรพคุณ</label>
                                 <input class="form-control" list="SymptomOptions" id="exampleDataList" placeholder=""
@@ -165,7 +210,7 @@ const Addmore = () => {
                                 <label for="validationCustom04" class="form-label">วิธีใช้งาน</label>
                                 <input class="form-control" list="UseOptions" id="exampleDataList" placeholder=""
                                     onChange={(event) => {
-                                        setUseID(event.target.value)
+                                        setUsetype(event.target.value)
                                     }}
                                 />
                                 <datalist id="UseOptions">
@@ -210,11 +255,11 @@ const Addmore = () => {
                             >
                                 <AddIcon />
                             </IconButton>
-                            
                         </div>
                     ))}
                     <hb />
                     <button class="btn btn-primary button" onClick={(addLeafherbList)} type="submit">Submit form</button>
+                    
                 </form>
             </div>
             <Footer />

@@ -10,14 +10,15 @@ const Editherb = () => {
 
     const [leafherb, setleafherbList] = useState([]);
     const [newSPname, setnewSPname] = useState("");
+    const [newCname, setnewCname] = useState("");
 
     const updateLeafherbList = (HID) => {
-        Axios.put("http://localhost:3001/update", { SPname: newSPname, HID: HID }).then((response) => {
+        Axios.put("http://localhost:3001/update", { SPname: newSPname, Cname: newCname, HID: HID }).then((response) => {
             setleafherbList(
                 leafherb.map((val) => {
                     return val.HID === HID ? {
                         SPname: newSPname,
-                        Cname: val.Cname,
+                        Cname: newCname,
                         Sname: val.Sname,
                         Family: val.Family,
                         Pic: val.Pic,
