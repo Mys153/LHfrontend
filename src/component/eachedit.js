@@ -14,6 +14,8 @@ const Eachdetail = (props) => {
     const [newSPname, setnewSPname] = useState("");
     const [newCname, setnewCname] = useState("");
 
+    const [family_data, setfamily_data] = useState([]);
+
     async function detailLeafherb() {
         const res = Axios.get(`http://localhost:3001/detail/${id}`).then((response) => {
             setDetailherb(response.data);
@@ -21,8 +23,14 @@ const Eachdetail = (props) => {
         });
     }
 
+    async function getFamilyData() {
+        const res = Axios.get('http://localhost:3001/family').then((response) => {
+            setfamily_data(response.data);
+        });
+    }
+
     const updateLeafherbList = (HID) => {
-        Axios.put("http://localhost:3001/update", { SPname: newSPname,Cname: newCname, HID: HID }).then((response) => {
+        Axios.put("http://localhost:3001/update", { SPname: newSPname, Cname: newCname, HID: HID }).then((response) => {
             setleafherbList(
                 leafherb.map((val) => {
                     return val.HID == HID ? {
@@ -46,6 +54,7 @@ const Eachdetail = (props) => {
 
     useEffect(() => {
         detailLeafherb(id);
+        getFamilyData();
         // console.log(props.match.params.id);
     })
 
@@ -57,25 +66,25 @@ const Eachdetail = (props) => {
                     <div className="information card-body text-left">
                         {/* รายละเอียด */}
                         <div class="col-auto">
-                        <h3>{val.SPname}</h3>
+                            <h3>{val.SPname}</h3>
                             <img src={val.Pic} class="pic img-thumbnail" alt="..." width="500" height="600"></img>
                         </div>
                         <form class="row g-3 rounded bgc" novalidate>
                             <h4>รายละเอียด</h4>
                             <div class="col-md-4">
                                 <label for="validationCustom01" class="form-label">ชื่อ</label>
-                                <input type="text" class="form-control" id={val.SPname} placeholder={val.SPname} 
-                                onChange={(event) => {
-                                    setnewSPname(event.target.value)
-                                }}
+                                <input type="text" class="form-control" id={val.SPname} placeholder={val.SPname}
+                                    onChange={(event) => {
+                                        setnewSPname(event.target.value)
+                                    }}
                                 />
                             </div>
                             <div class="col-md-4">
                                 <label for="validationCustom02" class="form-label">ชื่อสามัญ (ชื่อภาษาอังกฤษ)</label>
-                                <input type="text" class="form-control" id={val.Cname} placeholder={val.Cname} 
-                                onChange={(event) => {
-                                    setnewCname(event.target.value)
-                                }}
+                                <input type="text" class="form-control" id={val.Cname} placeholder={val.Cname}
+                                    onChange={(event) => {
+                                        setnewCname(event.target.value)
+                                    }}
                                 />
                             </div>
                             <div class="col-md-4">
@@ -90,11 +99,21 @@ const Eachdetail = (props) => {
                             </div> */}
                             <div class="col-md-3">
                                 <label for="validationCustom04" class="form-label">วงศ์</label>
-                                <select class="form-select" id="validationCustom04" placeholder={val.Family} >
-                                    <option selected disabled value="">Choose...</option>
-                                    <option>...</option>
+                                <select class="form-select" id="validationCustom04" placeholder={val.Family} >              
+                                    {family_data.map((data) => (<option selected title={data.Family}>{data.Family}</option>))}
                                 </select>
                             </div>
+                            {/* <div class="col-md-3">
+                                <label for="exampleDataList" class="form-label">วงศ์</label>
+                                <input class="form-control" list="FamilyOptions" id="exampleDataList" placeholder="Type to search..."
+                                    onChange={(event) => {
+                                        setFamily(event.target.value)
+                                    }}
+                                />
+                                <datalist id="FamilyOptions">
+                                    {family_data.map((val) => (<option title={val.Family}>{val.Family}</option>))}
+                                </datalist>
+                            </div> */}
                             <hb />
                         </form>
 
@@ -103,40 +122,37 @@ const Eachdetail = (props) => {
                             <h4>ลักษณะทางพฤษศาสตร์</h4>
                             <div class="col-md-4">
                                 <label for="exampleFormControlTextarea1" class="form-label">ราก</label>
-                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder={val.Root} >
+                                <textarea class="form-control" id="" rows="3" placeholder={val.Root} >
                                 </textarea>
                             </div>
                             <div class="col-md-4">
                                 <label for="exampleFormControlTextarea1" class="form-label">ลำต้น</label>
-                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder={val.Stem}>
+                                <textarea class="form-control" id="" rows="3" placeholder={val.Stem}>
                                 </textarea>
                             </div>
                             <div class="col-md-4">
                                 <label for="exampleFormControlTextarea1" class="form-label">ใบ</label>
-                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder={val.Leaf}>
+                                <textarea class="form-control" id="" rows="3" placeholder={val.Leaf}>
                                 </textarea>
                             </div>
                             <div class="col-md-4">
                                 <label for="exampleFormControlTextarea1" class="form-label">ดอก</label>
-                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder={val.Flower}>
+                                <textarea class="form-control" id="" rows="3" placeholder={val.Flower}>
                                 </textarea>
                             </div>
                             <div class="col-md-4">
                                 <label for="exampleFormControlTextarea1" class="form-label">ผล</label>
-                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder={val.Fruit}>
+                                <textarea class="form-control" id="" rows="3" placeholder={val.Fruit}>
                                 </textarea>
                             </div>
                             <div class="col-md-4">
                                 <label for="exampleFormControlTextarea1" class="form-label">เมล็ด</label>
-                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder={val.Seed}>
+                                <textarea class="form-control" id="" rows="3" placeholder={val.Seed}>
                                 </textarea>
                             </div>
                             <hb />
                         </form>
-                        <div class="d-grid d-md-flex justify-content-md-end">
-                            <a onClick={() => { updateLeafherbList(val.HID) }} href={"/editherb/"} class="btn btn-warning btn-md">Edit</a>
-                            {/* <button className="button btn btn-warning btn-lg" onClick={() => { updateLeafherbList(val.HID) }} >Edit</button> */}
-                        </div>
+
 
                         {/* สรรพคุณและวิธีใช้ */}
                         {/* <form class="row g-3 needs-validation rounded bgc" novalidate>
@@ -183,6 +199,10 @@ const Eachdetail = (props) => {
                             </div>
                             <hb />
                         </form> */}
+                        <div class="d-grid d-md-flex justify-content-md-end">
+                            <a onClick={() => { updateLeafherbList(val.HID) }} href={"/editherb/"} class="button btn btn-warning btn-md">Edit</a>
+                            {/* <button className="button btn btn-warning btn-lg" onClick={() => { updateLeafherbList(val.HID) }} >Edit</button> */}
+                        </div>
                     </div>
                 )
             })}

@@ -20,7 +20,7 @@ class App extends Component {
         <Route exact path="/editherb/" component={Editherb} />
         <Route exact path="/editherb/:id" component={Eachedit} />
         <Route exact path="/detailherb/:id" component={Detailherb} />
-        <Route exact path="/addnewherb/:id" component={Addmore} />
+        <Route exact path="/addnewherb/addmore" component={Addmore} />
       </Switch>
     );
   }

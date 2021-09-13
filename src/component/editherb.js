@@ -76,7 +76,7 @@ const Editherb = () => {
             <table class="table table-bordered">
                 <thead>
                     <tr>
-                        <th scope="col">No.</th>
+                        <th scope="col">ID</th>
                         <th scope="col">ชื่อ</th>
                         <th scope="col">ชื่อสามัญ</th>
                         <th scope="col">ชื่อวิทยาศาสตร์</th>

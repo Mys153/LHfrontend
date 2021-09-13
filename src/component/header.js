@@ -1,6 +1,5 @@
 import '../App.css'
 import '../css/show.css'
-
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 
@@ -9,6 +8,7 @@ import logo from '../image/favicon.ico';
 class Header extends Component {
     render() {
         const style = {
+            marginleft:20,
             height: 100,
         }
         return (
@@ -17,7 +17,7 @@ class Header extends Component {
                     <div className="col-md-8 text-left mt-2">
                         <h1 className="text-light ml-2">
                             <img style={style} src={logo} alt="" />
-                            Leaf Herb
+                            Ton Herb
                         </h1>
                     </div>
                     <div className="inline col-md-4 text-right mt-5">

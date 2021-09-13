@@ -7,9 +7,9 @@ const Footer = () => {
             <hr />
             <div className='text-center title text-uppercase'>
                 <small>
-                    <span className="text-light">Prowered by LEAF HERB</span>
+                    <span className="text-light">Prowered by TON HERB</span>
                     <br />
-                    <span className="text-light">contact by email 123@gmail.com</span>
+                    <span className="text-light">contact by email tonherb@gmail.com</span>
                     <br/><br/><br/>
                 </small>
             </div>

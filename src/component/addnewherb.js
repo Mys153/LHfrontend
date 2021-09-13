@@ -12,8 +12,6 @@ import RemoveIcon from '@material-ui/icons/Remove';
 import AddIcon from '@material-ui/icons/Add';
 
 const Addnewherb = () => {
-
-    const [HID, setHID] = useState("");
     const [SPname, setSPname] = useState("");
     const [Cname, setCname] = useState("");
     const [Sname, setSname] = useState("");
@@ -26,37 +24,29 @@ const Addnewherb = () => {
     const [Fruit, setFruit] = useState("");
     const [Seed, setSeed] = useState("");
 
-    // const [UseID, setUseID] = useState("");
-    // const [SymID, setSymID] = useState("");
-    // const [Part, setPart] = useState("");
-    // const [How, setHow] = useState("");
-
-    // const [Rname, setRname] = useState("");
-    // const [Publish_years, setPublish_years] = useState("");
-    // const [Rlink, setRlink] = useState("");
-    // const [Rdetail, setRdetail] = useState("");
-
-    // const [ChemID, setChemID] = useState("");
-    // const [Chem_name, setChem_name] = useState("");
-    // const [Chem_formular, setChem_formular] = useState("");
+    const [ChemID, setChemID] = useState("");
+    const [Chem_name, setChem_name] = useState("");
+    const [Chem_formular, setChem_formular] = useState("");
 
     const [leafherb, setleafherbList] = useState([]);
     const [symptom, setsymptom] = useState([]);
-
-    const [SymptomForm, setSymptomForm] = useState([
-        { UseID: '', SymID: '', Part: '', How: '' }
-    ]);
+    const [family_data, setfamily_data] = useState([]);
 
     async function symptopherb() {
-        const res = Axios.get(`http://localhost:3001/symptom`).then((response) => {
+        const res = Axios.get('http://localhost:3001/symptom').then((response) => {
             setsymptom(response.data);
             // console.log(response.data);
         });
     }
 
+    async function getFamilyData() {
+        const res = Axios.get('http://localhost:3001/family').then((response) => {
+            setfamily_data(response.data);
+        });
+    }
+
     const addLeafherbList = () => {
         Axios.post('http://localhost:3001/create', {
-            HID: HID,
             SPname: SPname,
             Cname: Cname,
             Sname: Sname,
@@ -69,24 +59,13 @@ const Addnewherb = () => {
             Fruit: Fruit,
             Seed: Seed,
 
-            // UseID: UseID,
-            // SymID: SymID,
-            // Part: Part,
-            // How: How,
-
-            // Rname: Rname,
-            // Publish_years: Publish_years,
-            // Rlink: Rlink,
-            // Rdetail: Rdetail,
-
-            // ChemID: ChemID,
-            // Chem_name: Chem_name,
-            // Chem_formular: Chem_formular,
+            ChemID: ChemID,
+            Chem_name: Chem_name,
+            Chem_formular: Chem_formular,
         }).then(() => {
             setleafherbList([
                 ...leafherb,
                 {
-                    HID: HID,
                     SPname: SPname,
                     Cname: Cname,
                     Sname: Sname,
@@ -99,16 +78,6 @@ const Addnewherb = () => {
                     Fruit: Fruit,
                     Seed: Seed,
 
-                    // UseID: UseID,
-                    // SymID: SymID,
-                    // Part: Part,
-                    // How: How,
-
-                    // Rname: Rname,
-                    // Publish_years: Publish_years,
-                    // Rlink: Rlink,
-                    // Rdetail: Rdetail,
-
                     // ChemID: ChemID,
                     // Chem_name: Chem_name,
                     // Chem_formular: Chem_formular,
@@ -117,19 +86,9 @@ const Addnewherb = () => {
         })
     }
 
-    const handleAddFields = () => {
-        setSymptomForm([...SymptomForm, { UseID: '', SymID: '', Part: '', How: '' }])
-
-    }
-
-    const handleRemoveFields = (index) => {
-        const values = [...SymptomForm];
-        values.splice(index, 1);
-        setSymptomForm(values);
-    }
-
     useEffect(() => {
         symptopherb();
+        getFamilyData();
     })
 
     return (
@@ -138,6 +97,7 @@ const Addnewherb = () => {
             <div className="information card-body text-left">
                 <h3>Add New Herb</h3>
                 {/* รายละเอียด */}
+                
                 <form class="row g-3 rounded bgc">
                     <h4>รายละเอียด</h4>
                     {/* <div class="col-md-4">
@@ -171,11 +131,11 @@ const Addnewherb = () => {
                             />
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    {/* <div class="col-md-6">
                         <label for="vinputEmail43" class="form-label">ชื่อท้องถิ่น</label>
                         <input type="text" class="form-control" id="inputEmail43" placeholder="ชื่อท้องถิ่น..."
                         />
-                    </div>
+                    </div> */}
                     <div class="col-md-3">
                         <label for="exampleDataList" class="form-label">วงศ์</label>
                         <input class="form-control" list="FamilyOptions" id="exampleDataList" placeholder="Type to search..."
@@ -184,11 +144,10 @@ const Addnewherb = () => {
                             }}
                         />
                         <datalist id="FamilyOptions">
-                            {/* {symptom.map((val) => (<option title={val.SymID}>{val.Detail}</option>)
-                            )} */}
+                            {family_data.map((val) => (<option title={val.Family}>{val.Family}</option>))}
                         </datalist>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-9">
                         <label for="vinputEmail4" class="form-label">รูปภาพ (Link)</label>
                         <div class="input-group has-validation">
                             <input type="text" class="form-control" id="inputEmail4" placeholder="Link..."
@@ -256,171 +215,7 @@ const Addnewherb = () => {
                     <hb />
                 </form>
 
-                {/* สรรพคุณและวิธีใช้ */}
                 {/* <form class="row g-3 rounded bgc" >
-                    <h4>สรรพคุณ</h4>
-                    {SymptomForm.map((inputField, index) => (
-                        <div key={index}>
-                            <TextField
-                                name="firstName"
-                                label="First Name"
-                                variant="filled"
-                                value={inputField.firstName}
-                            />
-                            <TextField
-                                name="lastName"
-                                label="Last Name"
-                                variant="filled"
-                                value={inputField.lastName}
-                            />
-                            <div class="col-md-4">
-                                <label for="exampleDataList" class="form-label">สรรพคุณ</label>
-                                <input class="form-control" list="SymptomOptions" id="exampleDataList" placeholder=""
-                                    onChange={(event) => {
-                                        setSymID(event.target.value)
-                                    }}
-                                />
-                                <datalist id="SymptomOptions">
-                                    {symptom.map((val) => (<option value={val.SymID}>{val.Detail}</option>)
-                                    )}
-                                </datalist>
-                            </div>
-                            <div class="col-md-4">
-                                <label for="validationCustom04" class="form-label">วิธีใช้งาน</label>
-                                <input class="form-control" list="UseOptions" id="exampleDataList" placeholder=""
-                                    onChange={(event) => {
-                                        setUseID(event.target.value)
-                                    }}
-                                />
-                                <datalist id="UseOptions">
-                                    <option title="">ต้ม</option>
-                                    <option title="">กินสด</option>
-                                    <option title="">บด</option>
-                                    <option title="">ตากแห้ง</option>
-                                    <option title="">ดอง</option>
-                                </datalist>
-                            </div>
-                            <div class="col-md-4">
-                                <label for="validationCustom04" class="form-label">ส่วนที่ใช้งาน</label>
-                                <input class="form-control" list="PartOptions" id="exampleDataList" placeholder=""
-                                    onChange={(event) => {
-                                        setPart(event.target.value)
-                                    }}
-                                />
-                                <datalist id="PartOptions">
-                                    <option title="">ราก</option>
-                                    <option title="">ต้น</option>
-                                    <option title="">ใบ</option>
-                                    <option title="">ดอก</option>
-                                    <option title="">ผล</option>
-                                    <option title="">เมล็ด</option>
-                                </datalist>
-                            </div>
-                            <div class="col-md-12">
-                                <label for="exampleFormControlTextarea1" class="form-label">การใช้งาน</label>
-                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder=""
-                                    onChange={(event) => {
-                                        setHow(event.target.value)
-                                    }}>
-                                </textarea>
-                            </div>
-                            <IconButton
-                                onClick={() => handleRemoveFields(index)}
-                            >
-                                <RemoveIcon />
-                            </IconButton>
-                            <IconButton
-                                onClick={() => handleAddFields()}
-                            >
-                                <AddIcon />
-                            </IconButton>
-                        </div>
-                    ))}
-                    <hb />
-                </form> */}
-                {/* <form class="row g-3 rounded bgc" >
-                    <h4>สรรพคุณ</h4>
-                    {SymptomForm.map((inputField, index) => (
-                        <div key={index}>
-                            <TextField
-                                name="firstName"
-                                label="First Name"
-                                variant="filled"
-                                value={inputField.firstName}
-                            />
-                            <TextField
-                                name="lastName"
-                                label="Last Name"
-                                variant="filled"
-                                value={inputField.lastName}
-                            />
-                            <div class="col-md-4">
-                                <label for="exampleDataList" class="form-label">สรรพคุณ</label>
-                                <input class="form-control" list="SymptomOptions" id="exampleDataList" placeholder=""
-                                    onChange={(event) => {
-                                        setSymID(event.target.value)
-                                    }}
-                                />
-                                <datalist id="SymptomOptions">
-                                    {symptom.map((val) => (<option value={val.SymID}>{val.Detail}</option>)
-                                    )}
-                                </datalist>
-                            </div>
-                            <div class="col-md-4">
-                                <label for="validationCustom04" class="form-label">วิธีใช้งาน</label>
-                                <input class="form-control" list="UseOptions" id="exampleDataList" placeholder=""
-                                    onChange={(event) => {
-                                        setUseID(event.target.value)
-                                    }}
-                                />
-                                <datalist id="UseOptions">
-                                    <option title="">ต้ม</option>
-                                    <option title="">กินสด</option>
-                                    <option title="">บด</option>
-                                    <option title="">ตากแห้ง</option>
-                                    <option title="">ดอง</option>
-                                </datalist>
-                            </div>
-                            <div class="col-md-4">
-                                <label for="validationCustom04" class="form-label">ส่วนที่ใช้งาน</label>
-                                <input class="form-control" list="PartOptions" id="exampleDataList" placeholder=""
-                                    onChange={(event) => {
-                                        setPart(event.target.value)
-                                    }}
-                                />
-                                <datalist id="PartOptions">
-                                    <option title="">ราก</option>
-                                    <option title="">ต้น</option>
-                                    <option title="">ใบ</option>
-                                    <option title="">ดอก</option>
-                                    <option title="">ผล</option>
-                                    <option title="">เมล็ด</option>
-                                </datalist>
-                            </div>
-                            <div class="col-md-12">
-                                <label for="exampleFormControlTextarea1" class="form-label">การใช้งาน</label>
-                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder=""
-                                    onChange={(event) => {
-                                        setHow(event.target.value)
-                                    }}>
-                                </textarea>
-                            </div>
-                            <IconButton
-                                onClick={() => handleRemoveFields(index)}
-                            >
-                                <RemoveIcon />
-                            </IconButton>
-                            <IconButton
-                                onClick={() => handleAddFields()}
-                            >
-                                <AddIcon />
-                            </IconButton>
-                        </div>
-                    ))}
-                    <hb />
-                </form>
-
-                <form class="row g-3 rounded bgc" >
                     <h4>งานวิจัยที่เกี่ยวข้อง</h4>
                     <div class="col-md-5">
                         <label for="validationCustom03" class="form-label">ชื่องานวิจัย</label>
@@ -458,8 +253,8 @@ const Addnewherb = () => {
                 </form> */}
                 <div>
                     <div class="col-12">
-                        <button class="btn btn-primary button" onClick={(addLeafherbList)} type="submit">Submit form</button>
-                        <a onClick={(addLeafherbList)} href={"/addnewherb/addmore"} class="btn btn-info">more</a>
+                        {/* <button class="btn btn-primary button" onClick={(addLeafherbList)} type="submit">Submit form</button> */}
+                        <a onClick={(addLeafherbList)} href={"/addnewherb/addmore/"} class="btn btn-info">Next</a>
                     </div>
                 </div>
             </div>
