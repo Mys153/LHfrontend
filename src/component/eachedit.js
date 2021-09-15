@@ -100,7 +100,7 @@ const Eachdetail = (props) => {
                             <div class="col-md-3">
                                 <label for="validationCustom04" class="form-label">วงศ์</label>
                                 <select class="form-select" id="validationCustom04" placeholder={val.Family} >              
-                                    {family_data.map((data) => (<option selected title={data.Family}>{data.Family}</option>))}
+                                    {family_data.map((data) => (<option selected title=''>{data.Family}</option>))}
                                 </select>
                             </div>
                             {/* <div class="col-md-3">

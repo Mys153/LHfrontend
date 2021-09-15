@@ -18,11 +18,13 @@ const Addmore = () => {
     const [Part, setPart] = useState("");
     const [How, setHow] = useState("");
 
+    const [RHID, setRHID] = useState("");
     const [Rname, setRname] = useState("");
     const [Publish_years, setPublish_years] = useState("");
     const [Rlink, setRlink] = useState("");
     const [Rdetail, setRdetail] = useState("");
 
+    const [CHID, setCHID] = useState("");
     const [ChemID, setChemID] = useState("");
     const [Chem_name, setChem_name] = useState("");
     const [Chem_formular, setChem_formular] = useState("");
@@ -36,10 +38,10 @@ const Addmore = () => {
         { HID: '', Usetype: '', SymID: '', Part: '', How: '' }
     ]);
     const [ResearchForm, setResearchForm] = useState([
-        { HID: '', Rname: '', Publish_years: '', Rlink: '', Rdetail: '' }
+        { RHID: '', Rname: '', Publish_years: '', Rlink: '', Rdetail: '' }
     ])
     const [ChemForm, setChemForm] = useState([
-        { HID: '', ChemID: '', Chem_name: '', Chem_formular: ''}
+        { CHID: '', Chem_name: '', Chem_formular: ''}
     ])
 
     async function symptopherb() {
@@ -65,12 +67,13 @@ const Addmore = () => {
             Part: Part,
             How: How,
 
+            RHID: RHID,
             Rname: Rname,
             Publish_years: Publish_years,
             Rlink: Rlink,
             Rdetail: Rdetail,
 
-            ChemID: ChemID,
+            CHID: CHID,
             Chem_name: Chem_name,
             Chem_formular: Chem_formular,
         }).then(() => {
@@ -83,12 +86,13 @@ const Addmore = () => {
                     Part: Part,
                     How: How,
 
+                    RHID: RHID,
                     Rname: Rname,
                     Publish_years: Publish_years,
                     Rlink: Rlink,
                     Rdetail: Rdetail,
 
-                    ChemID: ChemID,
+                    CHID: CHID,
                     Chem_name: Chem_name,
                     Chem_formular: Chem_formular,
                 }
@@ -106,7 +110,7 @@ const Addmore = () => {
     }
 
     const ResearchAddFields = () => {
-        setResearchForm([...ResearchForm, { HID: '', Rname: '', Publish_years: '', Rlink: '', Rdetail: '' }])
+        setResearchForm([...ResearchForm, { RHID: '', Rname: '', Publish_years: '', Rlink: '', Rdetail: '' }])
     }
     const ResearchRemoveFields = (index) => {
         const values = [...ResearchForm];
@@ -115,7 +119,7 @@ const Addmore = () => {
     }
 
     const ChemAddFields = () => {
-        setChemForm([...ChemForm, { HID: '', ChemID: '', Chem_name: '', Chem_formular: ''}])
+        setChemForm([...ChemForm, { CHID: '', Chem_name: '', Chem_formular: ''}])
     }
     const ChemRemoveFields = (index) => {
         const values = [...ChemForm];
@@ -260,23 +264,45 @@ const Addmore = () => {
 
                         </form>
                     ))}
-                    {/* <h4>งานวิจัยที่เกี่ยวข้อง</h4>
+                    <h4>งานวิจัยที่เกี่ยวข้อง</h4>
                     {ResearchForm.map((inputField, index) => (
                         <form class="row g-3  rounded bgc ">
+                            <div class="col-md-1">
+                                <label for="vinputEmail4" class="form-label">HID</label>
+                                <div class="input-group has-validation">
+                                    <input type="text" list="useid" class="form-control" placeholder=""
+                                        onChange={(event) => {
+                                            setRHID(event.target.value)
+                                        }}
+                                    />
+                                    <datalist id="useid">
+                                        {addmore.map((val) => (<option value={val.HID}>{val.HID}</option>))}
+                                    </datalist>
+                                </div>
+                            </div>
                             <div class="col-md-5">
                                 <label for="validationCustom01" class="form-label">ชื่องานวิจัย</label>
-                                <input class="form-control" list="useid" type="text" value=""
+                                <input class="form-control" type="text" placeholder=""
+                                onChange={(event) => {
+                                    setRname(event.target.value)
+                                }}
                                 />
                             </div>
                             <div class="w-55"></div>
                             <div class="col-md-1">
                                 <label for="validationCustom01" class="form-label">ปีที่พิมพ์</label>
                                 <input class="form-control" type="text" placeholder=""
+                                onChange={(event) => {
+                                    setPublish_years(event.target.value)
+                                }}
                                 />
                             </div>
                             <div class="col-md-4">
                                 <label for="validationCustom02" class="form-label">อ้างอิง (Link)</label>
                                 <input class="form-control" type="text" placeholder=""
+                                onChange={(event) => {
+                                    setRlink(event.target.value)
+                                }}
                                 />
                             </div>
                             <div class="w-50"></div>
@@ -308,23 +334,48 @@ const Addmore = () => {
                     <h4>สารแคมีที่เกี่ยวข้อง</h4>
                     {ChemForm.map((inputField,index) => (
                         <form class="row g-3  rounded bgc ">
-                        <div class="col-md-5">
-                            <label for="validationCustom01" class="form-label">ชื่องานวิจัย</label>
-                            <input class="form-control" list="useid" type="text" value=""
+                            <div class="col-md-1">
+                                <label for="vinputEmail4" class="form-label">HID</label>
+                                <div class="input-group has-validation">
+                                    <input type="text" list="useid" class="form-control" placeholder=""
+                                        onChange={(event) => {
+                                            setCHID(event.target.value)
+                                        }}
+                                    />
+                                    <datalist id="useid">
+                                        {addmore.map((val) => (<option value={val.HID}>{val.HID}</option>))}
+                                    </datalist>
+                                </div>
+                            </div>
+                        <div class="col-md-4">
+                            <label for="validationCustom01" class="form-label">ชื่อสาร</label>
+                            <input class="form-control" type="text" 
+                            onChange={(event) => {
+                                setChem_name(event.target.value)
+                            }}
                             />
                         </div>
                         <div class="w-55"></div>
-                        <div class="col-md-1">
-                            <label for="validationCustom01" class="form-label">ปีที่พิมพ์</label>
+                        <div class="col-md-5">
+                            <label for="validationCustom01" class="form-label">สูตรทางเคมี</label>
                             <input class="form-control" type="text" placeholder=""
+                            onChange={(event) => {
+                                setChem_formular(event.target.value)
+                            }}
                             />
                         </div>
-                        <div class="col-md-4">
-                            <label for="validationCustom02" class="form-label">อ้างอิง (Link)</label>
-                            <input class="form-control" type="text" placeholder=""
-                            />
-                        </div>
-                        <div class="w-50"></div>
+                        {/* <div class="col-md-2">
+                                <label for="exampleDataList" class="form-label">สรรพคุณ</label>
+                                <input class="form-control" list="SymptomOptions" id="exampleDataList" placeholder=""
+                                    onChange={(event) => {
+                                        setSymID(event.target.value)
+                                    }}
+                                />
+                                <datalist id="SymptomOptions">
+                                    {symptom.map((val) => (<option value={val.SymID}>{val.Detail}</option>))}
+                                </datalist>
+                            </div> */}
+                        {/* <div class="w-50"></div>
                         <div class="col-md-5 ">
                             <label for="exampleFormControlTextarea1" class="form-label">บทคัดย่อ</label>
                             <textarea class="form-control" id="Reaserach_detail" rows="3" placeholder=""
@@ -332,7 +383,7 @@ const Addmore = () => {
                                     setRdetail(event.target.value)
                                 }}>
                             </textarea>
-                        </div>
+                        </div> */}
                         <div class="w-70"></div>
                         <div class="col align-self-center">
                             <IconButton
@@ -349,7 +400,7 @@ const Addmore = () => {
 
                         <hb />
                     </form>
-                    ))} */}
+                    ))}
                     <hb />
                 </form>
                 <div class="d-grid justify-content-md-end">
